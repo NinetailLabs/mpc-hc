@@ -15539,6 +15539,13 @@ afx_msg void CMainFrame::OnSubtitleDelay(UINT nID)
     }
 }
 
+void CMainFrame::AddFileToPlaylist(CString filepath)
+{
+    CAtlList<CString> fns;
+    fns.AddHead(filepath);
+    m_wndPlaylistBar.Append(fns, true);
+}
+
 void CMainFrame::ProcessAPICommand(COPYDATASTRUCT* pCDS)
 {
     CAtlList<CString> fns;
@@ -15598,7 +15605,7 @@ void CMainFrame::ProcessAPICommand(COPYDATASTRUCT* pCDS)
             SetSubtitleDelay(_wtoi((LPCWSTR)pCDS->lpData));
             break;
         case CMD_SETINDEXPLAYLIST:
-            //m_wndPlaylistBar.SetSelIdx(_wtoi((LPCWSTR)pCDS->lpData));
+            m_wndPlaylistBar.SetSelIdx(_wtoi((LPCWSTR)pCDS->lpData));
             break;
         case CMD_SETAUDIOTRACK:
             SetAudioTrackIdx(_wtoi((LPCWSTR)pCDS->lpData));

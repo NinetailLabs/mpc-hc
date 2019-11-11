@@ -469,49 +469,11 @@ bool CWebClientSocket::OnBrowser(CStringA& hdr, CStringA& body, CStringA& mime)
     if (m_get.Lookup("path", path)) {
 
         if (CFileGetStatus(path, fs) && !(fs.m_attribute & CFile::directory)) {
-            // TODO: make a new message for just opening files, this is a bit overkill now...
-
-            CAtlList<CString> cmdln;
-
-            cmdln.AddTail(path);
-
-            CString focus;
-            if (m_get.Lookup("focus", focus) && !focus.CompareNoCase(_T("no"))) {
-                cmdln.AddTail(_T("/nofocus"));
-            }
-
-            int len = 0;
-
-            POSITION pos = cmdln.GetHeadPosition();
-            while (pos) {
-                CString& str = cmdln.GetNext(pos);
-                len += (str.GetLength() + 1) * sizeof(TCHAR);
-            }
-
-            CAutoVectorPtr<BYTE> buff;
-            if (buff.Allocate(4 + len)) {
-                BYTE* p = buff;
-                *(DWORD*)p = (DWORD)cmdln.GetCount();
-                p += sizeof(DWORD);
-
-                pos = cmdln.GetHeadPosition();
-                while (pos) {
-                    CString& str = cmdln.GetNext(pos);
-                    len = (str.GetLength() + 1) * sizeof(TCHAR);
-                    memcpy(p, (LPCTSTR)str, len);
-                    p += len;
-                }
-
-                COPYDATASTRUCT cds;
-                cds.dwData = 0x6ABE51;
-                cds.cbData = DWORD(p - buff);
-                cds.lpData = (void*)(BYTE*)buff;
-                m_pMainFrame->SendMessage(WM_COPYDATA, (WPARAM)nullptr, (LPARAM)&cds);
-            }
-
-            CPath p(path);
-            p.RemoveFileSpec();
-            path = (LPCTSTR)p;
+            // Implement to be similar to the original logic so that behaviour does not change
+            m_pMainFrame->m_wndPlaylistBar.Empty();
+            m_pMainFrame->AddFileToPlaylist(path);
+            m_pMainFrame->m_wndPlaylistBar.SetSelIdx(0);
+            m_pMainFrame->SendMessage(WM_COMMAND, ID_PLAY_PLAY);
         }
     } else {
         path = m_pMainFrame->m_wndPlaylistBar.GetCurFileName();
@@ -751,7 +713,8 @@ bool CWebClientSocket::OnVariables(CStringA& hdr, CStringA& body, CStringA& mime
     body.Replace("[size]", UTF8(GetSize()));
     body.Replace("[reloadtime]", UTF8(reloadtime));
     body.Replace("[version]", UTF8(AfxGetMyApp()->m_strVersion));
-
+    body.Replace("[fullscreen]", m_pMainFrame->m_fFullScreen ? "true" : "false");
+    
     return true;
 }
 

@@ -1022,6 +1022,7 @@ public:
 
 
     // MPC API functions
+    void        AddFileToPlaylist(CString filepath);
     void        ProcessAPICommand(COPYDATASTRUCT* pCDS);
     void        SendAPICommand(MPCAPI_COMMAND nCommand, LPCWSTR fmt, ...);
     void        SendNowPlayingToApi();
