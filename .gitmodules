@@ -32,3 +32,6 @@
 [submodule "src/thirdparty/minhook/minhook"]
 	path = src/thirdparty/minhook/minhook
 	url = https://github.com/TsudaKageyu/minhook.git
+[submodule "src/thirdparty/RARFileSource/library"]
+	path = src/thirdparty/RARFileSource/library
+	url = https://github.com/mpc-hc/rarfilesource.git
