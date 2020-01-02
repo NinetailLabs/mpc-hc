@@ -185,7 +185,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
     ON_MESSAGE_VOID(WM_DISPLAYCHANGE, OnDisplayChange)
     ON_WM_WINDOWPOSCHANGING()
 
-    ON_MESSAGE(0x02E0, OnDpiChanged)
+    ON_MESSAGE(WM_DPICHANGED, OnDpiChanged)
 
     ON_WM_SYSCOMMAND()
     ON_WM_ACTIVATEAPP()
@@ -786,6 +786,7 @@ CMainFrame::CMainFrame()
     , m_bIsBDPlay(false)
     , watchingFileDialog(false)
     , fileDialogHookHelper(nullptr)
+    , restoringWindowRect(false)
 {
     // Don't let CFrameWnd handle automatically the state of the menu items.
     // This means that menu items without handlers won't be automatically
@@ -1606,7 +1607,9 @@ LRESULT CMainFrame::OnDpiChanged(WPARAM wParam, LPARAM lParam)
     m_dpi.Override(LOWORD(wParam), HIWORD(wParam));
     m_eventc.FireEvent(MpcEvent::DPI_CHANGED);
     CMPCThemeMenu::clearDimensions();
-    MoveWindow(reinterpret_cast<RECT*>(lParam));
+    if (!restoringWindowRect) { //do not adjust for DPI if restoring saved window position
+        MoveWindow(reinterpret_cast<RECT*>(lParam));
+    }
     RecalcLayout();
     return 0;
 }
@@ -9348,7 +9351,9 @@ void CMainFrame::SetDefaultWindowRect(int iMonitor)
         CRect windowRect(rcLastWindowPos.TopLeft(), windowSize);
         if ((!iMonitor && CMonitors::IsOnScreen(windowRect))
                 || (iMonitor && monitor.IsOnMonitor(windowRect))) {
+            restoringWindowRect = true;
             MoveWindow(windowRect);
+            restoringWindowRect = false;
             bRestoredWindowPosition = true;
         }
     }
@@ -9989,10 +9994,18 @@ void CMainFrame::MoveVideoWindow(bool fShowStats/* = false*/, bool bSetStoppedVi
             double dScaledVRWidth  = m_ZoomX * dVRWidth;
             double dScaledVRHeight = m_ZoomY * dVRHeight;
 
+            auto vertAlign = AfxGetAppSettings().iVerticalAlignVideo;
+            double vertAlignOffset = 0;
+            if (vertAlign == CAppSettings::verticalAlignVideoType::ALIGN_TOP) {
+                vertAlignOffset = -(dWRHeight - dScaledVRHeight) / 2;
+            } else if (vertAlign == CAppSettings::verticalAlignVideoType::ALIGN_BOTTOM) {
+                vertAlignOffset = (dWRHeight - dScaledVRHeight) / 2;
+            }
+
             // Position video frame
             // left and top parts are allowed to be negative
             videoRect.left   = lround(m_PosX * (dWRWidth * 3.0 - dScaledVRWidth) - dWRWidth);
-            videoRect.top    = lround(m_PosY * (dWRHeight * 3.0 - dScaledVRHeight) - dWRHeight);
+            videoRect.top    = lround(m_PosY * (dWRHeight * 3.0 - dScaledVRHeight) - dWRHeight + vertAlignOffset);
             // right and bottom parts are always at picture center or beyond, so never negative
             videoRect.right  = lround(videoRect.left + dScaledVRWidth);
             videoRect.bottom = lround(videoRect.top  + dScaledVRHeight);
