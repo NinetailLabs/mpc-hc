@@ -2,27 +2,15 @@
 # Copyright (C) 2002 - 2017 see Authors.txt
 # This file is distributed under the same license as the MPC-HC package.
 # Translators:
-# B512, 2015-2016
-# reneweesp <bmom43@hotmail.com>, 2016-2017
-# Dennis Gerritsen <frostflame@hotmail.com>, 2014
-# dragnadh <dragnadh@gmail.com>, 2015-2017
-# DennisW, 2014,2016
-# hendrickbert <hendrickbert@gmail.com>, 2015
-# B512, 2015
-# Madada Madada <madada@mailismagic.com>, 2017
-# Marco Brohet <therbom@gmail.com>, 2015
-# mark van tilburg <markvantilburg@gmail.com>, 2016
-# Peter Pul, 2015
-# rjongejan <ruben.jongejan@gmail.com>, 2014
-# Tom <inactive+nmad@transifex.com>, 2014
-# Underground78, 2016
+# MPC HC <adiposegithub@gmail.com>, 2020
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: MPC-HC\n"
-"POT-Creation-Date: 2017-08-01 20:44:32+0000\n"
-"PO-Revision-Date: 2017-08-05 15:11+0000\n"
-"Last-Translator: reneweesp <bmom43@hotmail.com>\n"
-"Language-Team: Dutch (http://www.transifex.com/mpc-hc/mpc-hc/language/nl/)\n"
+"POT-Creation-Date: 2019-12-17 06:27:41+0000\n"
+"PO-Revision-Date: 2020-01-02 07:46+0000\n"
+"Last-Translator: MPC HC <adiposegithub@gmail.com>, 2020\n"
+"Language-Team: Dutch (https://www.transifex.com/mpchc/teams/106126/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3822,8 +3810,8 @@ msgid "Fetching supported languages..."
 msgstr "Ophalen ondersteunde talen..."
 
 msgctxt "IDS_SUB_CREDENTIALS_ERROR"
-msgid "Failed to log in on \"%S\" with username \"%S\".\n\nPlease enter the correct username and password or reset the credentials to log in as anonymous user."
-msgstr "Inloggen op \"%S\" mislukt, met de gebruikersnaam \"%S\".\n\nGeef a.u.b. de juiste gebruikersnaam en wachtwoord in  of reset de referenties en log in als anonieme gebruiker."
+msgid "Failed to log in on \"%1\" with username \"%2\".\n\nPlease enter the correct username and password or reset the credentials to log in as anonymous user."
+msgstr "Inloggen op \"%1\" mislukt, met de gebruikersnaam \"%2\".\n\nGeef a.u.b. de juiste gebruikersnaam en wachtwoord in  of reset de referenties en log in als anonieme gebruiker."
 
 msgctxt "IDS_SUB_AUTODL_IGNORE_TOOLTIP"
 msgid "Automatic search and download will be disabled for all media files whose path contains any of the patterns entered here.\nFor example, type: \"private dir\\videos|work\\\"."
@@ -4031,6 +4019,10 @@ msgstr ""
 
 msgctxt "IDS_MESSAGEBOX_CONTINUE"
 msgid "&Continue"
+msgstr ""
+
+msgctxt "IDS_AG_TOGGLE_DEFAULT_SUBTITLE_STYLE"
+msgid "Toggle Default Subtitle Style"
 msgstr ""
 
 msgctxt "IDS_AG_TOGGLE_MPCTHEME"

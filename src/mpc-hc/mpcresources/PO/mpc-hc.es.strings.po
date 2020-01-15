@@ -2,25 +2,15 @@
 # Copyright (C) 2002 - 2017 see Authors.txt
 # This file is distributed under the same license as the MPC-HC package.
 # Translators:
-# Adolfo Jayme Barrientos, 2014-2015
-# Adolfo Jayme Barrientos, 2017
-# Adolfo Jayme Barrientos, 2015-2016
-# Adolfo Jayme Barrientos, 2014
-# Ernesto Avilés Vázquez <whippiii@gmail.com>, 2013
-# Adolfo Jayme Barrientos, 2016
-# fdelacruz <inactive+fdelacruz@transifex.com>, 2014
-# Johan Ramirez <idonthumanbeing@gmail.com>, 2014
-# Johan Ramirez <idonthumanbeing@gmail.com>, 2014
-# Alpha120 <juanhc120@gmail.com>, 2014
-# squallmx <squallmx@users.sourceforge.net>, 2014
-# strel, 2014-2017
+# MPC HC <adiposegithub@gmail.com>, 2020
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: MPC-HC\n"
-"POT-Creation-Date: 2017-08-01 20:44:32+0000\n"
-"PO-Revision-Date: 2017-08-01 21:09+0000\n"
-"Last-Translator: kasper93\n"
-"Language-Team: Spanish (http://www.transifex.com/mpc-hc/mpc-hc/language/es/)\n"
+"POT-Creation-Date: 2019-12-17 06:27:41+0000\n"
+"PO-Revision-Date: 2020-01-02 07:46+0000\n"
+"Last-Translator: MPC HC <adiposegithub@gmail.com>, 2020\n"
+"Language-Team: Spanish (https://www.transifex.com/mpchc/teams/106126/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3820,8 +3810,8 @@ msgid "Fetching supported languages..."
 msgstr "Descargando idiomas soportados..."
 
 msgctxt "IDS_SUB_CREDENTIALS_ERROR"
-msgid "Failed to log in on \"%S\" with username \"%S\".\n\nPlease enter the correct username and password or reset the credentials to log in as anonymous user."
-msgstr "No se pudo guardar en \"%S\" con el nombre de usuario \"%S\".\n\nPor favor, introduzca el nombre de usuario y contraseña correctos o restablezca las credenciales para iniciar sesión como un usuario anónimo."
+msgid "Failed to log in on \"%1\" with username \"%2\".\n\nPlease enter the correct username and password or reset the credentials to log in as anonymous user."
+msgstr "No se pudo guardar en \"%1\" con el nombre de usuario \"%2\".\n\nPor favor, introduzca el nombre de usuario y contraseña correctos o restablezca las credenciales para iniciar sesión como un usuario anónimo."
 
 msgctxt "IDS_SUB_AUTODL_IGNORE_TOOLTIP"
 msgid "Automatic search and download will be disabled for all media files whose path contains any of the patterns entered here.\nFor example, type: \"private dir\\videos|work\\\"."
@@ -4029,6 +4019,10 @@ msgstr ""
 
 msgctxt "IDS_MESSAGEBOX_CONTINUE"
 msgid "&Continue"
+msgstr ""
+
+msgctxt "IDS_AG_TOGGLE_DEFAULT_SUBTITLE_STYLE"
+msgid "Toggle Default Subtitle Style"
 msgstr ""
 
 msgctxt "IDS_AG_TOGGLE_MPCTHEME"

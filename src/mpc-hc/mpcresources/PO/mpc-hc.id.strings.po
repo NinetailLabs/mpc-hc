@@ -2,30 +2,15 @@
 # Copyright (C) 2002 - 2017 see Authors.txt
 # This file is distributed under the same license as the MPC-HC package.
 # Translators:
-# Asep Suparman <asep.suparman@outlook.com>, 2014
-# Bahasa Fansub <joshua.siagian.hidden1234@gmail.com>, 2014
-# Dody Prayuto <dodzaguila@gmail.com>, 2016
-# Dody Prayuto <dodzaguila@gmail.com>, 2016
-# DyarPerdana <hysteria27@gmail.com>, 2014
-# DyarPerdana <hysteria27@gmail.com>, 2014
-# yoga.mardia <made.yoga12@gmail.com>, 2014
-# Mulia Arifandi Nasution, 2014
-# Mulia Arifandi Nasution, 2014
-# Reza Septyan .R. <ainofuyuumI@outlook.com>, 2014
-# rizqiromadhon <rizqi-romadhon@outlook.com>, 2014
-# rizqiromadhon <rizqi-romadhon@outlook.com>, 2014
-# yoga.mardia <made.yoga12@gmail.com>, 2014
-# zk, 2015-2016
-# zk, 2015
-# zk, 2015
-# zk, 2015
+# MPC HC <adiposegithub@gmail.com>, 2020
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: MPC-HC\n"
-"POT-Creation-Date: 2017-08-01 20:44:32+0000\n"
-"PO-Revision-Date: 2017-08-01 21:09+0000\n"
-"Last-Translator: kasper93\n"
-"Language-Team: Indonesian (http://www.transifex.com/mpc-hc/mpc-hc/language/id/)\n"
+"POT-Creation-Date: 2019-12-17 06:27:41+0000\n"
+"PO-Revision-Date: 2020-01-02 07:46+0000\n"
+"Last-Translator: MPC HC <adiposegithub@gmail.com>, 2020\n"
+"Language-Team: Indonesian (https://www.transifex.com/mpchc/teams/106126/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3825,8 +3810,8 @@ msgid "Fetching supported languages..."
 msgstr "Mengambil bahasa yang didukung..."
 
 msgctxt "IDS_SUB_CREDENTIALS_ERROR"
-msgid "Failed to log in on \"%S\" with username \"%S\".\n\nPlease enter the correct username and password or reset the credentials to log in as anonymous user."
-msgstr "Gagal masuk ke \"%S\" dengan nama pengguna \"%S\".\n\nHarap masukkan nama pengguna dan sandi yang benar atau setel ulang kredensial untuk masuk sebagai anonim."
+msgid "Failed to log in on \"%1\" with username \"%2\".\n\nPlease enter the correct username and password or reset the credentials to log in as anonymous user."
+msgstr "Gagal masuk ke \"%1\" dengan nama pengguna \"%2\".\n\nHarap masukkan nama pengguna dan sandi yang benar atau setel ulang kredensial untuk masuk sebagai anonim."
 
 msgctxt "IDS_SUB_AUTODL_IGNORE_TOOLTIP"
 msgid "Automatic search and download will be disabled for all media files whose path contains any of the patterns entered here.\nFor example, type: \"private dir\\videos|work\\\"."
@@ -4034,6 +4019,10 @@ msgstr ""
 
 msgctxt "IDS_MESSAGEBOX_CONTINUE"
 msgid "&Continue"
+msgstr ""
+
+msgctxt "IDS_AG_TOGGLE_DEFAULT_SUBTITLE_STYLE"
+msgid "Toggle Default Subtitle Style"
 msgstr ""
 
 msgctxt "IDS_AG_TOGGLE_MPCTHEME"
