@@ -265,6 +265,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
     ON_UPDATE_COMMAND_UI(ID_FILE_SUBTITLES_DOWNLOAD, OnUpdateFileSubtitlesDownload)
     ON_COMMAND(ID_FILE_PROPERTIES, OnFileProperties)
     ON_UPDATE_COMMAND_UI(ID_FILE_PROPERTIES, OnUpdateFileProperties)
+    ON_COMMAND(ID_FILE_OPEN_LOCATION, OnFileOpenLocation)
+    ON_UPDATE_COMMAND_UI(ID_FILE_OPEN_LOCATION, OnUpdateFileProperties)
     ON_COMMAND(ID_FILE_CLOSE_AND_RESTORE, OnFileCloseAndRestore)
     ON_UPDATE_COMMAND_UI(ID_FILE_CLOSE_AND_RESTORE, OnUpdateFileClose)
     ON_COMMAND(ID_FILE_CLOSEMEDIA, OnFileCloseMedia)
@@ -304,6 +306,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
     ON_UPDATE_COMMAND_UI(ID_VIEW_FULLSCREEN, OnUpdateViewFullscreen)
     ON_COMMAND_RANGE(ID_VIEW_ZOOM_50, ID_VIEW_ZOOM_200, OnViewZoom)
     ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_ZOOM_50, ID_VIEW_ZOOM_200, OnUpdateViewZoom)
+    ON_COMMAND_RANGE(ID_VIEW_ZOOM_25, ID_VIEW_ZOOM_25, OnViewZoom)
+    ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_ZOOM_25, ID_VIEW_ZOOM_25, OnUpdateViewZoom)
     ON_COMMAND(ID_VIEW_ZOOM_AUTOFIT, OnViewZoomAutoFit)
     ON_UPDATE_COMMAND_UI(ID_VIEW_ZOOM_AUTOFIT, OnUpdateViewZoom)
     ON_COMMAND(ID_VIEW_ZOOM_AUTOFIT_LARGER, OnViewZoomAutoFitLarger)
@@ -319,6 +323,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
     ON_UPDATE_COMMAND_UI_RANGE(ID_PANNSCAN_PRESETS_START, ID_PANNSCAN_PRESETS_END, OnUpdateViewPanNScanPresets)
     ON_COMMAND_RANGE(ID_PANSCAN_ROTATEXP, ID_PANSCAN_ROTATEZM, OnViewRotate)
     ON_UPDATE_COMMAND_UI_RANGE(ID_PANSCAN_ROTATEXP, ID_PANSCAN_ROTATEZM, OnUpdateViewRotate)
+    ON_COMMAND_RANGE(ID_PANSCAN_ROTATEZ270, ID_PANSCAN_ROTATEZ270, OnViewRotate)
+    ON_UPDATE_COMMAND_UI_RANGE(ID_PANSCAN_ROTATEZ270, ID_PANSCAN_ROTATEZ270, OnUpdateViewRotate)
     ON_COMMAND_RANGE(ID_ASPECTRATIO_START, ID_ASPECTRATIO_END, OnViewAspectRatio)
     ON_UPDATE_COMMAND_UI_RANGE(ID_ASPECTRATIO_START, ID_ASPECTRATIO_END, OnUpdateViewAspectRatio)
     ON_COMMAND(ID_ASPECTRATIO_NEXT, OnViewAspectRatioNext)
@@ -2940,7 +2946,7 @@ void CMainFrame::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
         if (firstSubItemID == ID_VIEW_VF_HALF               // is "Video Frame" submenu
                 || firstSubItemID == ID_VIEW_INCSIZE        // is "Pan&Scan" submenu
                 || firstSubItemID == ID_ASPECTRATIO_START   // is "Override Aspect Ratio" submenu
-                || firstSubItemID == ID_VIEW_ZOOM_50) {     // is "Zoom" submenu
+                || firstSubItemID == ID_VIEW_ZOOM_25) {     // is "Zoom" submenu
             UINT fState = (GetLoadState() == MLS::LOADED && !m_fAudioOnly)
                           ? MF_ENABLED
                           : (MF_DISABLED | MF_GRAYED);
@@ -5199,7 +5205,7 @@ void CMainFrame::OnFileSubtitlesLoad()
         dwFlags |= OFN_DONTADDTORECENT;
     }
     CString filters;
-    filters.Format(_T("%s|*.srt;*.sub;*.ssa;*.ass;*.smi;*.psb;*.txt;*.idx;*.usf;*.xss;*.rt;*.sup|%s"),
+    filters.Format(_T("%s|*.srt;*.sub;*.ssa;*.ass;*.smi;*.psb;*.txt;*.idx;*.usf;*.xss;*.rt;*.sup;*.vtt|%s"),
                    ResStr(IDS_SUBTITLE_FILES_FILTER).GetString(), ResStr(IDS_ALL_FILES_FILTER).GetString());
 
     CFileDialog fd(TRUE, nullptr, nullptr, dwFlags, filters, GetModalParent());
@@ -5364,6 +5370,11 @@ void CMainFrame::OnFileProperties()
 void CMainFrame::OnUpdateFileProperties(CCmdUI* pCmdUI)
 {
     pCmdUI->Enable(GetLoadState() == MLS::LOADED && GetPlaybackMode() != PM_ANALOG_CAPTURE);
+}
+
+void CMainFrame::OnFileOpenLocation() {
+    CString filePath = m_wndPlaylistBar.GetCurFileName();
+    ExploreToFile(filePath);
 }
 
 void CMainFrame::OnFileCloseMedia()
@@ -6540,7 +6551,7 @@ void CMainFrame::OnUpdateViewFullscreen(CCmdUI* pCmdUI)
 
 void CMainFrame::OnViewZoom(UINT nID)
 {
-    double scale = (nID == ID_VIEW_ZOOM_50) ? 0.5 : (nID == ID_VIEW_ZOOM_200) ? 2.0 : 1.0;
+    double scale = (nID == ID_VIEW_ZOOM_25) ? 0.25 : (nID == ID_VIEW_ZOOM_50) ? 0.5 : (nID == ID_VIEW_ZOOM_200) ? 2.0 : 1.0;
 
     ZoomVideoWindow(scale);
 
@@ -6830,6 +6841,7 @@ void CMainFrame::OnViewRotate(UINT nID)
 
         switch (nID) {
             case ID_PANSCAN_ROTATEZP:
+            case ID_PANSCAN_ROTATEZ270:
                 rotation += 270;
                 break;
             case ID_PANSCAN_ROTATEZM:
@@ -6864,6 +6876,19 @@ void CMainFrame::OnViewRotate(UINT nID)
                     m_AngleY = 0;
                 } else {
                     m_AngleY = 180;
+                }
+                break;
+            case ID_PANSCAN_ROTATEZ270:
+                if (m_AngleZ > 270) {
+                    m_AngleZ = 270;
+                } else if (m_AngleZ > 180) {
+                    m_AngleZ = 180;
+                } else if (m_AngleZ > 90) {
+                    m_AngleZ = 90;
+                } else if (m_AngleZ > 0) {
+                    m_AngleZ = 0;
+                } else {
+                    m_AngleZ = 270;
                 }
                 break;
             case ID_PANSCAN_ROTATEZP:
@@ -10582,8 +10607,8 @@ void CMainFrame::OpenCreateGraphObject(OpenMediaData* pOMD)
 
         CStringA ct = GetContentType(pOpenFileData->fns.GetHead());
 
-        if (ct == "video/x-ms-asf") {
-            // TODO: put something here to make the windows media source filter load later
+        if (ct == "application/x-shockwave-flash") {
+            engine = ShockWave;
 #ifndef _WIN64
         } else if (ct == "audio/x-pn-realaudio"
                    || ct == "audio/x-pn-realaudio-plugin"
@@ -10594,18 +10619,18 @@ void CMainFrame::OpenCreateGraphObject(OpenMediaData* pOMD)
                    || ct.Find("realaudio") >= 0
                    || ct.Find("realvideo") >= 0) {
             engine = RealMedia;
-#endif
-        } else if (ct == "application/x-shockwave-flash") {
-            engine = ShockWave;
-#ifndef _WIN64
-        } else if (ct == "video/quicktime"
-                   || ct == "application/x-quicktimeplayer") {
+        }
+        else if (ct == "application/x-quicktimeplayer") {
             engine = QuickTime;
+#endif
+#if 0
+        } else if (ct == "video/x-ms-asf") {
+            // TODO: put something here to make the windows media source filter load later
 #endif
         }
 
 #ifdef _WIN64
-        // override
+        // override unsupported frameworks
         if (engine == RealMedia || engine == QuickTime) {
             engine = DirectShow;
         }
@@ -10614,8 +10639,21 @@ void CMainFrame::OpenCreateGraphObject(OpenMediaData* pOMD)
         HRESULT hr = E_FAIL;
         CComPtr<IUnknown> pUnk;
 
-        if (engine == RealMedia) {
+        if (engine == ShockWave) {
+            pUnk = (IUnknown*)(INonDelegatingUnknown*)DEBUG_NEW DSObjects::CShockwaveGraph(m_pVideoWnd->m_hWnd, hr);
+            if (!pUnk) {
+                throw (UINT)IDS_AG_OUT_OF_MEMORY;
+            }
+
+            if (SUCCEEDED(hr)) {
+                m_pGB = CComQIPtr<IGraphBuilder>(pUnk);
+            }
+            if (FAILED(hr) || !m_pGB) {
+                throw (UINT)IDS_MAINFRM_77;
+            }
+            m_fShockwaveGraph = true;
 #ifndef _WIN64
+        } else if (engine == RealMedia) {
             // TODO : see why Real SDK crash here ...
             //if (!IsRealEngineCompatible(p->fns.GetHead()))
             //  throw ResStr(IDS_REALVIDEO_INCOMPATIBLE);
@@ -10631,24 +10669,7 @@ void CMainFrame::OpenCreateGraphObject(OpenMediaData* pOMD)
                     m_fRealMediaGraph = true;
                 }
             }
-#endif
-        } else if (engine == ShockWave) {
-            pUnk = (IUnknown*)(INonDelegatingUnknown*)DEBUG_NEW DSObjects::CShockwaveGraph(m_pVideoWnd->m_hWnd, hr);
-            if (!pUnk) {
-                throw (UINT)IDS_AG_OUT_OF_MEMORY;
-            }
-
-            if (SUCCEEDED(hr)) {
-                m_pGB = CComQIPtr<IGraphBuilder>(pUnk);
-            }
-            if (FAILED(hr) || !m_pGB) {
-                throw (UINT)IDS_MAINFRM_77;
-            }
-            m_fShockwaveGraph = true;
         } else if (engine == QuickTime) {
-#ifdef _WIN64   // TODOX64
-            //MessageBox (ResStr(IDS_MAINFRM_78), _T(""), MB_OK);
-#else
             pUnk = (IUnknown*)(INonDelegatingUnknown*)DEBUG_NEW DSObjects::CQuicktimeGraph(m_pVideoWnd->m_hWnd, hr);
             if (!pUnk) {
                 throw (UINT)IDS_AG_OUT_OF_MEMORY;
@@ -13292,7 +13313,7 @@ void CMainFrame::SetupJumpToSubMenus(CMenu* parentMenu /*= nullptr*/, int iInser
         if (m_wndPlaylistBar.GetCount() > 1) {
             menuStartRadioSection();
             POSITION pos = m_wndPlaylistBar.m_pl.GetHeadPosition();
-            while (pos) {
+            while (pos && id < ID_NAVIGATE_JUMPTO_SUBITEM_START + 128) {
                 UINT flags = MF_BYCOMMAND | MF_STRING | MF_ENABLED;
                 if (pos == m_wndPlaylistBar.m_pl.GetPos()) {
                     idSelected = id;

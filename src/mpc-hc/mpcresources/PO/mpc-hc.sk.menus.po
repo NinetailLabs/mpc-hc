@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MPC-HC\n"
-"POT-Creation-Date: 2019-08-03 00:05:32+0000\n"
+"POT-Creation-Date: 2020-02-25 18:25:51+0000\n"
 "PO-Revision-Date: 2020-01-02 07:46+0000\n"
 "Last-Translator: Marián Hikaník <podnety@mojepreklady.net>, 2020\n"
 "Language-Team: Slovak (https://www.transifex.com/mpchc/teams/106126/sk/)\n"
@@ -90,6 +90,10 @@ msgctxt "ID_FILE_PROPERTIES"
 msgid "P&roperties"
 msgstr "V&lastnosti"
 
+msgctxt "ID_FILE_OPEN_LOCATION"
+msgid "Open File &Location"
+msgstr "Otvoriť u&miestnenie súboru"
+
 msgctxt "ID_FILE_EXIT"
 msgid "E&xit"
 msgstr "U&končiť"
@@ -169,6 +173,10 @@ msgstr "Na &celú obrazovku"
 msgctxt "POPUP"
 msgid "&Zoom"
 msgstr "Pribl&íženie"
+
+msgctxt "ID_VIEW_ZOOM_25"
+msgid "&25%"
+msgstr ""
 
 msgctxt "ID_VIEW_ZOOM_50"
 msgid "&50%"
@@ -493,6 +501,22 @@ msgstr "Posunúť na&dol"
 msgctxt "ID_PANSCAN_CENTER"
 msgid "Cen&ter"
 msgstr "Vycen&trovať"
+
+msgctxt "ID_PANSCAN_ROTATEZM"
+msgid "Rotate Cloc&kwise"
+msgstr "Otočiť v smere pohybu hodinových ručičie&k"
+
+msgctxt "ID_PANSCAN_ROTATEZ270"
+msgid "Rotate Counter-Clock&wise"
+msgstr "Otočiť &proti smeru pohybu hodinových ručičiek"
+
+msgctxt "ID_PANSCAN_ROTATEXM"
+msgid "&Flip Vertically"
+msgstr "Prevrátiť &vertikálne"
+
+msgctxt "ID_PANSCAN_ROTATEYM"
+msgid "&Mirror"
+msgstr "&Zrkadlo"
 
 msgctxt "ID_VIEW_RESET"
 msgid "Re&set"

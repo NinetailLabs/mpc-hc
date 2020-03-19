@@ -602,7 +602,7 @@ CString CPPageAccelTbl::MakeAccelShortcutLabel(const ACCEL& a)
             str = _T("OEM 2");
             break;
         case VK_OEM_3:
-            str = _T("OEM 3");
+            str = _T("`");
             break;
         case VK_OEM_4:
             str = _T("OEM 4");
@@ -1065,7 +1065,8 @@ void  CPPageAccelTbl::FilterList()
 {
     CString filter;
     filterEdit.GetWindowText(filter);
-    filter = NormalizeUnicodeStrForSearch(filter);
+    LANGID langid = AfxGetAppSettings().language;
+    filter = NormalizeUnicodeStrForSearch(filter, langid);
 
     m_list.SetRedraw(false);
     m_list.DeleteAllItems();
@@ -1079,9 +1080,9 @@ void  CPPageAccelTbl::FilterList()
         id.Format(_T("%u"), wc.cmd);
         sname = wc.GetName();
 
-        sname = NormalizeUnicodeStrForSearch(sname);
-        id = NormalizeUnicodeStrForSearch(id);
-        hotkey = NormalizeUnicodeStrForSearch(hotkey);
+        sname = NormalizeUnicodeStrForSearch(sname, langid);
+        id = NormalizeUnicodeStrForSearch(id, langid);
+        hotkey = NormalizeUnicodeStrForSearch(hotkey, langid);
 
         if (filter.IsEmpty() || sname.Find(filter) != -1 || hotkey.Find(filter) != -1 || id.Find(filter) != -1) {
             int row = m_list.InsertItem(m_list.GetItemCount(), wc.GetName(), COL_CMD);
