@@ -31,3 +31,6 @@
 [submodule "src/thirdparty/RARFileSource/library"]
 	path = src/thirdparty/RARFileSource/library
 	url = https://github.com/mpc-hc/rarfilesource.git
+[submodule "src/thirdparty/sanear/sanear"]
+	path = src/thirdparty/sanear/sanear
+	url = https://github.com/mpc-hc/sanear.git
